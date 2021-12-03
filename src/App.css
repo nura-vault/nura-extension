@@ -1,0 +1,33 @@
+.pwlist {
+  background-repeat: no-repeat, repeat, repeat;
+  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f);
+
+  height: 300px;
+  overflow-y: scroll;
+}
+
+
+.button {
+  background-color: #00000000;
+  border: none;
+  width: 100%;
+  min-height: 40px;
+  color: lightgrey;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.button:hover {
+    background-color: #ffffff08 !important;
+}
+
+table {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  /* width: 100%; */
+}
+
+td {
+  text-align: left;
+  padding: 8px;
+  width: fit-content;
+}

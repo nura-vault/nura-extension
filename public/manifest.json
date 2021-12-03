@@ -1,0 +1,28 @@
+{
+  "manifest_version": 2,
+  "version": "0.0.1",
+  "short_name": "nura",
+  "name": "nura vault",
+  "description": "nura vault extension",
+  "browser_action": {
+    "default_title": "nura",
+    "default_popup": "popup.html",
+    "default_icon": "logo.png"
+  },
+  "background": {
+    "scripts": ["background.bundle.js"]
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["contentScript.bundle.js"]
+    }
+  ],
+  "permissions": [
+    "storage",
+    "tabs",
+    "contextMenus",
+    "webRequest"
+  ],
+  "options_page": "options.html"
+}
