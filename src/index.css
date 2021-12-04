@@ -4,7 +4,7 @@ html, body {
 
   height: 500px;
   max-height: 500px;
-  width: 300px;
+  width: 280px;
 }
 
 
@@ -18,8 +18,6 @@ body {
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  /* background-color: #d4d4d4; */
 
   user-select: none;
 }
