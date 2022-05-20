@@ -4,6 +4,8 @@ import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 import './App.css';
 import { getArchive } from './endpoints/Archive';
 import { getVault } from './endpoints/Vault';
+import Create from './panels/Create';
+import Settings from './panels/Settings';
 import { useDispatch, useSelector } from './store/store';
 import { Password } from './store/vaultSlice';
 import './tabs.css';
@@ -142,67 +144,12 @@ function App() {
                         <Tab>Create</Tab>
                     </TabList>
 
-                    <TabPanel style={{
-                        overflowY: 'scroll',
-                        maxHeight: '150px'
-                    }}>
-                        <table>
-                            <tr>
-                                <td>
-                                    <Switch
-                                        onChange={state => {
-                                            setFilter(state);
-                                            localStorage.setItem("url-filter", state.toString());
-                                        }}
-                                        uncheckedIcon={false}
-                                        checkedIcon={false}
-                                        onColor={"#7da4d8"}
-                                        checked={filter}
-                                        height={20}
-                                        width={40}
-                                    />
-                                </td>
-                                <td>URL filter</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <Switch
-                                        onChange={state => {
-                                            setAutoFill(state);
-                                            localStorage.setItem("auto-fill", state.toString());
-                                        }}
-                                        uncheckedIcon={false}
-                                        checkedIcon={false}
-                                        onColor={"#7da4d8"}
-                                        checked={autoFill}
-                                        height={20}
-                                        width={40}
-                                    />
-                                </td>
-                                <td>Auto fill</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <Switch
-                                        onChange={state => {
-                                            setAutoSubmit(state);
-                                            localStorage.setItem("auto-submit", state.toString());
-                                        }}
-                                        uncheckedIcon={false}
-                                        checkedIcon={false}
-                                        onColor={"#7da4d8"}
-                                        checked={autoSubmit}
-                                        height={20}
-                                        width={40}
-                                    />
-                                </td>
-                                <td>Auto submit</td>
-                            </tr>
-                        </table>
+                    <TabPanel>
+                        <Settings />
                     </TabPanel>
 
                     <TabPanel>
-
+                        <Create />
                     </TabPanel>
                 </Tabs>
             </div>

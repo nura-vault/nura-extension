@@ -1,7 +1,6 @@
 import { AES } from "crypto-js";
 
 fetchLocalStorage()
-postLoading()
 
 export function fetchLocalStorage() {
     const state = localStorage.getItem("state")
@@ -13,15 +12,6 @@ export function fetchLocalStorage() {
     chrome.runtime.sendMessage({
         payload: "storage",
         state: state
-    }, function (response) {
-        console.log(response?.payload);
-    });
-}
-
-export function postLoading() {
-    chrome.runtime.sendMessage({
-        payload: "loading",
-        state: true
     }, function (response) {
         console.log(response?.payload);
     });
