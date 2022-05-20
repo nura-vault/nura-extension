@@ -1,8 +1,8 @@
 
 
-something()
+receive()
 
-export function something() {
+export function receive() {
   chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     if (!message.payload)
       return;
@@ -13,5 +13,14 @@ export function something() {
     localStorage.setItem('state', message.state)
     console.log("Received data from content-script")
     sendResponse({ payload: "received" })
+  })
+
+  chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
+    if (!message.payload)
+      return;
+
+    if (message.payload !== "loading")
+      return;
+
   })
 }

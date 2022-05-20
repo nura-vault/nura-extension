@@ -1,10 +1,9 @@
 import { AES } from "crypto-js";
 
 fetchLocalStorage()
+postLoading()
 
 export function fetchLocalStorage() {
-  console.log("fetching...")
-
   const state = localStorage.getItem("state")
 
   if (state === null || state === undefined)
@@ -19,16 +18,25 @@ export function fetchLocalStorage() {
   });
 }
 
+export function postLoading() {
+  chrome.runtime.sendMessage({
+    payload: "loading",
+    state: true
+  }, function (response) {
+    console.log(response.payload);
+  });
+}
+
 // Recive messages from background
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
 
   if (message.payload === "insert")
-    insert(message.username, message.password, message.masterToken)
+    insert(message.username, message.password, message.masterToken, message.submit)
 
   sendResponse({ "payload": "received" });
 })
 
-function insert(username: string, password: string, masterToken: string) {
+function insert(username: string, password: string, masterToken: string, submit: boolean) {
   const encrypted = decryptPassword(password, masterToken);
   const input = document.getElementsByTagName("input");
 
@@ -47,6 +55,11 @@ function insert(username: string, password: string, masterToken: string) {
       element.scrollIntoView();
     }
   }
+
+  if (!submit) return;
+
+  const submitButton = document.getElementsByTagName("button");
+  submitButton[0].click();
 }
 
 function decryptPassword(password: string, masterToken: string): string {

@@ -22,13 +22,14 @@ function App() {
       payload: "insert",
       password: password.password,
       username: password.username,
-      masterToken: masterToken
+      masterToken: masterToken,
+      submit: autoSubmit
     });
   }
 
   function getPasswords(filter: boolean): Password[] {
-    return vault.filter(password => !filter || tab.includes(password.website))
-      .concat(archive.filter(password => !filter || tab.includes(password.website)));
+    return vault.filter(password => !filter || tab.includes(password.website) && password.website.length > 0)
+      .concat(archive.filter(password => !filter || tab.includes(password.website) && password.website.length > 0));
   }
 
   const dispatch = useDispatch();
@@ -41,18 +42,27 @@ function App() {
   const archive = useSelector(state => state.archive);
 
   const [filter, setFilter] = React.useState(localStorage.getItem("url-filter") === "true");
+  const [autoFill, setAutoFill] = React.useState(localStorage.getItem("auto-fill") === "true");
+  const [autoSubmit, setAutoSubmit] = React.useState(localStorage.getItem("auto-submit") === "true");
+
   const [tab, setTab] = React.useState("");
 
   React.useEffect(() => {
-    chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
-      getArchive(dispatch, mail, token)
-      getVault(dispatch, mail, token)
-    });
+    getArchive(dispatch, mail, token)
+    getVault(dispatch, mail, token)
 
     chrome.tabs.query({ active: true, lastFocusedWindow: true }, tabs => {
       setTab(tabs[0].url!!);
     });
   }, [])
+
+  React.useEffect(() => {
+    const passwords = getPasswords(filter);
+
+    if (!autoFill || passwords.length != 1) return
+
+    insertPassword(passwords[0]);
+  }, [tab])
 
   const Empty = () => {
     if (getPasswords(filter).length > 0)
@@ -145,6 +155,40 @@ function App() {
                   />
                 </td>
                 <td>URL filter</td>
+              </tr>
+              <tr>
+                <td>
+                  <Switch
+                    onChange={state => {
+                      setAutoFill(state);
+                      localStorage.setItem("auto-fill", state.toString());
+                    }}
+                    uncheckedIcon={false}
+                    checkedIcon={false}
+                    onColor={"#7da4d8"}
+                    checked={autoFill}
+                    height={20}
+                    width={40}
+                  />
+                </td>
+                <td>Auto fill</td>
+              </tr>
+              <tr>
+                <td>
+                  <Switch
+                    onChange={state => {
+                      setAutoSubmit(state);
+                      localStorage.setItem("auto-submit", state.toString());
+                    }}
+                    uncheckedIcon={false}
+                    checkedIcon={false}
+                    onColor={"#7da4d8"}
+                    checked={autoSubmit}
+                    height={20}
+                    width={40}
+                  />
+                </td>
+                <td>Auto submit</td>
               </tr>
             </table>
           </TabPanel>
