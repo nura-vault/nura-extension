@@ -23,6 +23,7 @@
     "react-toggle-button": "^2.2.0",
     "redux": "^4.1.2",
     "redux-localstorage": "^0.4.1",
+    "styled-components": "^5.3.5",
     "typescript": "^4.1.2",
     "web-vitals": "^1.0.1"
   },
@@ -52,6 +53,10 @@
   },
   "devDependencies": {
     "@types/crypto-js": "^4.0.2",
-    "@types/react-tabs": "^2.3.3"
+    "@types/react-tabs": "^2.3.3",
+    "@types/styled-components": "^5.1.25"
+  },
+  "resolutions": {
+    "styled-components": "^5"
   }
 }

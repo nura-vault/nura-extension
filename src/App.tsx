@@ -144,7 +144,10 @@ function App() {
                         <Tab>Create</Tab>
                     </TabList>
 
-                    <TabPanel>
+                    <TabPanel style={{
+                        overflowY: 'scroll',
+                        maxHeight: '150px'
+                    }}>
                         <Settings />
                     </TabPanel>
 
