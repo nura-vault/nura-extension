@@ -34,8 +34,8 @@ export const Container = styled.div`
 export const Input = styled.input`
     background-color: #eee;
     border: none;
-    padding: 12px 15px;
-    margin: 8px 0;
+    padding: 10px 5px;
+    // margin: 8px 0;
     width: 100%;
 `;
 
@@ -46,7 +46,7 @@ export const Button = styled.button`
     color: #FFFFFF;
     font-size: 12px;
     font-weight: bold;
-    padding: 12px 45px;
+    padding: 12px 25px;
     letter-spacing: 1px;
     text-transform: uppercase;
     transition: transform 80ms ease-in;

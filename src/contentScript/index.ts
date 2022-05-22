@@ -31,6 +31,7 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
 function insert(username: string, password: string, masterToken: string, submit: boolean) {
     const encrypted = decryptPassword(password, masterToken);
     const input = document.getElementsByTagName("input");
+    let passInput = null;
 
     for (let i = 0; i < input.length; i++) {
         const element = input[i];
@@ -45,13 +46,23 @@ function insert(username: string, password: string, masterToken: string, submit:
             }
 
             element.scrollIntoView();
+            passInput = element;
         }
     }
 
-    if (!submit) return;
+    if (!submit || !passInput) return;
 
-    const submitButton = document.getElementsByTagName("button");
-    submitButton[0].click();
+    const parentElement = passInput.parentElement?.parentElement?.parentElement?.parentElement?.parentElement
+    const buttons = parentElement?.getElementsByTagName('button')!!
+
+    for (let i = 0; i < buttons.length; i++) {
+        if (buttons[i].outerHTML.includes('login') || buttons[i].outerHTML.includes('log-in')) {
+            buttons[i].click()
+            return
+        }
+    }
+
+    buttons[0].click()
 }
 
 function decryptPassword(password: string, masterToken: string): string {

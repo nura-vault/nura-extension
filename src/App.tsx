@@ -1,9 +1,10 @@
 import React from 'react';
-import Switch from "react-switch";
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
 import './App.css';
+import { config } from './config';
 import { getArchive } from './endpoints/Archive';
 import { getVault } from './endpoints/Vault';
+import { defaultSettings, Setting } from './entities/Setting';
 import Create from './panels/Create';
 import Settings from './panels/Settings';
 import { useDispatch, useSelector } from './store/store';
@@ -25,13 +26,21 @@ function App() {
             password: password.password,
             username: password.username,
             masterToken: masterToken,
-            submit: autoSubmit
+            submit: getSettings().autoSubmit
         });
     }
 
-    function getPasswords(filter: boolean): Password[] {
-        return vault.filter(password => !filter || tab.includes(password.website) && password.website.length > 0)
-            .concat(archive.filter(password => !filter || tab.includes(password.website) && password.website.length > 0));
+    function getSettings(): Setting {
+        const settings: Setting = localStorage.getItem('settings') ?
+            JSON.parse(localStorage.getItem('settings')!!) as Setting :
+            defaultSettings
+
+        return settings
+    }
+
+    function getPasswords(): Password[] {
+        return vault.filter(password => !getSettings().urlFilter || tab.includes(password.website) && password.website.length > 0)
+            .concat(archive.filter(password => !getSettings().urlFilter || tab.includes(password.website) && password.website.length > 0));
     }
 
     const dispatch = useDispatch();
@@ -42,10 +51,6 @@ function App() {
 
     const vault = useSelector(state => state.vault);
     const archive = useSelector(state => state.archive);
-
-    const [filter, setFilter] = React.useState(localStorage.getItem("url-filter") === "true");
-    const [autoFill, setAutoFill] = React.useState(localStorage.getItem("auto-fill") === "true");
-    const [autoSubmit, setAutoSubmit] = React.useState(localStorage.getItem("auto-submit") === "true");
 
     const [tab, setTab] = React.useState("");
 
@@ -59,15 +64,15 @@ function App() {
     }, [])
 
     React.useEffect(() => {
-        const passwords = getPasswords(filter);
+        const passwords = getPasswords();
 
-        if (!autoFill || passwords.length != 1) return
+        if (!getSettings().autoFill || passwords.length != 1) return
 
         insertPassword(passwords[0]);
     }, [tab])
 
     const Empty = () => {
-        if (getPasswords(filter).length > 0)
+        if (getPasswords().length > 0)
             return null;
 
         return (
@@ -80,7 +85,7 @@ function App() {
                 width: '100%',
                 height: '100%',
                 fontSize: '1.2em',
-                color: 'grey'
+                color: 'grey',
             }}>
                 <i className="bx bx-loader-circle bx-spin bx-rotate-90" style={{
                     fontSize: '50px',
@@ -109,7 +114,7 @@ function App() {
         const left = (window.screen.width - 880) / 2
         const top = (window.screen.height - 520) / 4
 
-        window.open("https://nura.micartey.dev/vault", 'newwin', `height=520px,width=880px,left=${left},top=${top}`)
+        window.open(`${config.host}/vault`, 'newwin', `height=520px,width=880px,left=${left},top=${top}`)
     }
 
     return (
@@ -117,7 +122,7 @@ function App() {
             <div style={{
                 display: 'flex',
                 flexDirection: 'row',
-                alignItems: 'center',
+                alignItems: 'center'
             }} onClick={OpenNura}>
                 <img src="/logo.png" width="30px" height="30px" alt="" />
                 <h3>Nura Vault</h3>
@@ -125,7 +130,7 @@ function App() {
 
             <div className="pwlist">
                 <Empty />
-                {getPasswords(filter).map((password, index) => {
+                {getPasswords().map((password, index) => {
                     return (
                         <button className="button" key={index} onClick={() => insertPassword(password)}>
                             <div>
@@ -144,14 +149,13 @@ function App() {
                         <Tab>Create</Tab>
                     </TabList>
 
-                    <TabPanel style={{
-                        overflowY: 'scroll',
-                        maxHeight: '150px'
-                    }}>
+                    <TabPanel>
                         <Settings />
                     </TabPanel>
 
-                    <TabPanel>
+                    <TabPanel style={{
+                        overflowY: 'scroll'
+                    }}>
                         <Create />
                     </TabPanel>
                 </Tabs>
