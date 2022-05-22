@@ -55,6 +55,20 @@ function insert(username: string, password: string, masterToken: string, submit:
     const parentElement = passInput.parentElement?.parentElement?.parentElement?.parentElement?.parentElement
     const buttons = parentElement?.getElementsByTagName('button')!!
 
+    if (!buttons[0]) {
+        const inputs = parentElement?.getElementsByTagName('input')!!
+
+        for (let i = 0; i < inputs.length; i++) {
+            if (inputs[i].type !== 'submit') continue
+
+            console.log(inputs[i])
+
+            inputs[i].click()
+        }
+
+        return
+    }
+
     for (let i = 0; i < buttons.length; i++) {
         if (buttons[i].outerHTML.includes('login') || buttons[i].outerHTML.includes('log-in')) {
             buttons[i].click()
