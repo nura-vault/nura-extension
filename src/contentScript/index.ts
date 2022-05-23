@@ -45,38 +45,39 @@ function insert(username: string, password: string, masterToken: string, submit:
                 input[i - 1].dispatchEvent(new Event('input', { bubbles: true }))
             }
 
-            element.scrollIntoView();
+            //element.scrollIntoView();
             passInput = element;
         }
     }
 
     if (!submit || !passInput) return;
 
-    const parentElement = passInput.parentElement?.parentElement?.parentElement?.parentElement?.parentElement
-    const buttons = parentElement?.getElementsByTagName('button')!!
 
-    if (!buttons[0]) {
+    let parentElement: HTMLElement | null = passInput.parentElement
+
+    for (let i = 0; i < 15; i++) {
         const inputs = parentElement?.getElementsByTagName('input')!!
+        const buttons = parentElement?.getElementsByTagName('button')!!
 
-        for (let i = 0; i < inputs.length; i++) {
+        for (let i = 0; i < inputs?.length; i++) {
             if (inputs[i].type !== 'submit') continue
 
             console.log(inputs[i])
-
             inputs[i].click()
-        }
-
-        return
-    }
-
-    for (let i = 0; i < buttons.length; i++) {
-        if (buttons[i].outerHTML.includes('login') || buttons[i].outerHTML.includes('log-in')) {
-            buttons[i].click()
             return
         }
+
+        for (let i = 0; i < buttons?.length; i++) {
+            if (buttons[i].outerHTML.includes('login') || buttons[i].outerHTML.includes('log-in') || buttons[i].outerHTML.includes('sign-in') || buttons[i].outerHTML.includes('signin')) {
+                buttons[i].click()
+                return
+            }
+        }
+
+        parentElement = parentElement ? parentElement.parentElement : null
     }
 
-    buttons[0].click()
+    passInput.parentElement?.parentElement?.parentElement?.getElementsByTagName('button')[0]?.click()
 }
 
 function decryptPassword(password: string, masterToken: string): string {
