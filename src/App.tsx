@@ -114,7 +114,7 @@ function App() {
         const left = (window.screen.width - 880) / 2
         const top = (window.screen.height - 520) / 4
 
-        window.open(`${config.host}/vault`, 'newwin', `height=520px,width=880px,left=${left},top=${top}`)
+        window.open(`https://nura.micartey.dev/vault`, 'newwin', `height=520px,width=880px,left=${left},top=${top}`)
     }
 
     return (
