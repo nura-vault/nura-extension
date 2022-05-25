@@ -1,5 +1,13 @@
 import styled from 'styled-components'
 
+export const Container = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+`
+
 export const Parent = styled.div`
     display: flex;
     justify-content: center;
@@ -8,36 +16,13 @@ export const Parent = styled.div`
     height: 100vh;
 `
 
-export const Form = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    padding: 0 50px;
-    height: 100%;
-    text-align: center;
-`
-
-export const Container = styled.div`
-    border-radius: 10px;
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25),
-        0 10px 10px rgba(0,0,0,0.22);
-    position: relative;
-    overflow: hidden;
-    width: 768px;
-    max-width: 100%;
-    min-height: 480px;
-    display: flex;
-    justify-content: space-between;
-`
-
 export const Input = styled.input`
     background-color: #eee;
     border: none;
     padding: 10px 5px;
     margin: 3px 0;
     max-width: 100%;
-`;
+`
 
 export const Button = styled.button`
     border-radius: 20px;

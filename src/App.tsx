@@ -156,7 +156,7 @@ function App() {
                     <TabPanel style={{
                         overflowY: 'scroll'
                     }}>
-                        <Create />
+                        <Create {...{dispatch, mail, token, masterToken, tab}} />
                     </TabPanel>
                 </Tabs>
             </div>
