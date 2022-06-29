@@ -1,46 +1,45 @@
-# Getting Started with Create React App
+# nura extension
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<div align="center" data-aos="flip-down">
+  <a href="https://reactjs.org/" target="_blank">
+    <img
+      src="https://img.shields.io/badge/Written%20in-React-%23EF4041?style=for-the-badge"
+      height="30"
+    />
+  </a>
+  <a href="https://nura.micartey.dev/" target="_blank">
+    <img
+      src="https://img.shields.io/badge/live%20on-micartey-%27a147.svg?style=for-the-badge"
+      height="30"
+    />
+  </a>
+</div>
 
-## Available Scripts
+## 📚 Introduction
 
-In the project directory, you can run:
+The nura-extension is an available extension usable with any [chromium](https://www.chromium.org/chromium-projects/) based browser. This includes `Chrome` and `Edge`. In order to use the nura extension, you have to first build it yourself since there is no official release up to this point. Furthermore, you need to have an account on your nura instance or use the official instance by clicking [here](https://nura.micartey.dev/login).
 
-### `yarn start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+<div align="center" data-aos="flip-down">
+    <img src="https://i.imgur.com/up92WVI.png">
+    <i style="padding: 10px"></i>
+    <img src="https://i.imgur.com/xFT8HVO.png">
+</div>
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## 💿 Installation
 
-### `yarn test`
+First of all, make sure to have `node` installed. Afterwards clone this repository and build the extension by executing following commands:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```shell
+$ git clone https://github.com/nura-vault/nura-extension.git .
+$ npm install
+$ npm start
+```
 
-### `yarn build`
+After the applciation has successfully started, press `Ctrl+C` to interrupt the task. Next go to your browser and go into the extenions settings. You can also enter `chrome://extensions` or `edge://extensions` into your url field depending on the browser you are using.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Next up, enable developer mode which can be founde at the top right or bottom left corner. After enabling the developer mode, a new button should appear to load unpacked extensions. Select the `dev` folder which has been created as an child directory of the project.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 📥 Usage
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Using the extension is pretty self explanatory. First you have to visit your nura instance an press `F5` and reopen the popup. This will sync your nura extension with the page. Everytime you want to use the extension you have to open the popup and actions will be taken.
